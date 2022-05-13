@@ -10,10 +10,16 @@ public class Usuario implements IListener {
 	public void agregarInteres(String interes) {
 		intereses.add(interes);
 	}
+	
 	@Override
 	public void update(Partido partido) {
-		// TODO Auto-generated method stub
+		intereses.add("agrego");
 		
+	}
+
+	@Override
+	public List<String> intereses() {
+		return intereses;
 	}
 	
 	

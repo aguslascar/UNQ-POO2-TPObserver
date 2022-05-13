@@ -16,7 +16,7 @@ class AplicacionTest {
 	void setUp() throws Exception {
 		app = new Aplicacion();
 		tenis = mock(Partido.class);
-		agustin = new Usuario();
+		agustin = mock(Usuario.class);
 	}
 
 	@Test
@@ -28,9 +28,9 @@ class AplicacionTest {
 	
 	@Test
 	void testRegistrarPartidoYNotificar() {
-		agustin.agregarInteres("Tenis");
-		app.agregarSuscripcion(agustin);
+		
+		app.agregarSuscripcion(agustin, "Tenis");
 		app.registrarPartido(tenis);
-		verify(agustin).update(tenis);
+		verify(agustin).update(any());
 	}
 }

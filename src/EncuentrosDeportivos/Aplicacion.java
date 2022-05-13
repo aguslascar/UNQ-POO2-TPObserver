@@ -2,6 +2,7 @@ package EncuentrosDeportivos;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Aplicacion {
 	private List<IListener> usuarios = new ArrayList<IListener>();
@@ -10,25 +11,30 @@ public class Aplicacion {
 	
 	public void registrarPartido(Partido partido) {
 		if(!(servidores.stream().anyMatch(s -> s.intereses().contains(partido.deporte())))) {
-			this.agregarNuevoServidor(partido);
+			this.agregarNuevoServidor(partido.deporte());
 		}
-		else {
 		for(ISubject s : servidores) {
 			if(s.intereses().contains(partido.deporte())) {
 				s.agregar(partido);
 			}
 		}
-	  }
 	}
 	
-	public void agregarSuscripcion(Usuario usuario) {
+	public void agregarSuscripcion(Usuario usuario, String interes) {
+		if(!(servidores.stream().anyMatch(s -> s.intereses().contains(interes)))) {
+			this.agregarNuevoServidor(interes);
+		}
+		for(ISubject s:servidores) {
+			if(s.intereses().contains(interes)) {
+				s.agregar(usuario);
+			}
+		}	
 		usuarios.add(usuario);
 	}
 
-
-	private void agregarNuevoServidor(Partido partido) {
-		ISubject servidor = new Servidor(this, partido.deporte());
-		servidor.agregar(partido);
+	
+	private void agregarNuevoServidor(String interes) {
+		ISubject servidor = new Servidor(this, interes);
 		servidores.add(servidor);
 		
 	}

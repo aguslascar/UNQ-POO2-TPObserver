@@ -19,6 +19,7 @@ public class Servidor implements ISubject {
 		partidos.add(partido);
 		this.notificar(partido);
 	}
+
 	
 	@Override
 	public void agregar(IListener listener) {
